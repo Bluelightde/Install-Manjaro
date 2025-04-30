@@ -12,7 +12,7 @@ packages=(
   libreoffice libreoffice-still-de flameshot gimp chromium
   thunderbird putty vlc gnome-disk-utility btop fzf hyfetch
   gpick rpi-imager papirus-icon-theme unzip virtualbox virtualbox-guest-utils
-  ttf-jetbrains-mono-nerd flatpak github-cli
+  ttf-jetbrains-mono-nerd flatpak github-cli wmctrl
 )
 sudo pacman -S --needed --noconfirm "${packages[@]}"
 
@@ -31,6 +31,7 @@ flatpaks=(
   io.github.ungoogled_software.ungoogled_chromium
   io.anytype.anytype
   org.nomacs.ImageLounge
+  io.github.shiftey.Desktop
 )
 for pkg in "${flatpaks[@]}"; do
   echo "   → $pkg"
