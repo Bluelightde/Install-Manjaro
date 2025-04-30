@@ -9,7 +9,7 @@ sudo pacman -Syu --noconfirm
 echo "2) Pakete installieren…"
 packages=(
   zsh neovim git htop kitty qalculate-gtk xclip
-  libreoffice libreoffice-still-de flameshot gimp chromium
+  libreoffice libreoffice-still-de flameshot gimp
   thunderbird putty vlc gnome-disk-utility btop fzf hyfetch
   gpick rpi-imager papirus-icon-theme unzip virtualbox virtualbox-guest-utils
   ttf-jetbrains-mono-nerd flatpak github-cli wmctrl
