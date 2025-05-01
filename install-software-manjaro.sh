@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Farben definieren (funktioniert in den meisten Terminals)
-RED="$(tput setaf 1)"  
-RESET="$(tput sgr0)"
+# Farben für Fehlermeldungen
+RED="$(tput setaf 1)"   || RED=""
+RESET="$(tput sgr0)"     || RESET="
 
+"
 # Bei Strg+C oder Kill sauber aufräumen
 cleanup() {
   echo            # Zeilenumbruch, falls der Cursor in der gleichen Zeile steht
