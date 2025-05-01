@@ -98,11 +98,11 @@ else
   git -C "$NVCHAD_DIR" pull --ff-only
 fi
 
-# Plugin-Sync im Headless-Modus, stdin auf /dev/null, mit +qa! zwangsweise beenden
-if nvim --headless +PackerSync +qa! </dev/null; then
+# Headless PackerSync nur wenn verfügbar, stderr auf /dev/null, stdin dicht:
+if nvim --headless +PackerSync +qa! </dev/null 2>/dev/null; then
   echo "→ Plugins synchronisiert"
 else
-  echo "⚠️ PackerSync nicht verfügbar oder fehlgeschlagen, übersprungen."
+  echo "Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
 fi
 
 
