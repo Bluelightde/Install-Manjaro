@@ -15,7 +15,7 @@ if command -v pacman &>/dev/null; then
  # PM_IN="sudo dnf install -y"
 elif command -v apt &>/dev/null; then
   DISTRO="debian"
-  PM_UP="sudo apt-get update && sudo apt -y upgrade"
+  PM_UP="sudo apt-get update && sudo apt-get -y upgrade"
   PM_IN="sudo apt-get -y install"
 else
   echo "Unsupported distro" >&2
