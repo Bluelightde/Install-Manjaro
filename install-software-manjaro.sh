@@ -13,6 +13,10 @@ if command -v pacman &>/dev/null; then
 #elif command -v dnf &>/dev/null; then
  # PM_UP="sudo dnf upgrade --refresh -y"
  # PM_IN="sudo dnf install -y"
+elif command -v apt &>/dev/null; then
+  DISTRO="debian"
+  PM_UP="sudo apt update && sudo apt -y upgrade"
+  PM_IN="sudo apt -y install"
 else
   echo "Unsupported distro" >&2
   exit 1
@@ -30,6 +34,22 @@ packages_arch=(
   gpick rpi-imager papirus-icon-theme unzip virtualbox virtualbox-guest-utils
   ttf-jetbrains-mono-nerd flatpak github-cli wmctrl bat
 )
+
+packages_debian=(
+  zsh neovim git htop kitty qalculate-gtk xclip
+  libreoffice libreoffice-l10n-de flameshot gimp
+  thunderbird putty vlc gnome-disk-utility btop fzf hyfetch
+  gpick rpi-imager papirus-icon-theme unzip virtualbox virtualbox-guest-utils
+  fonts-jetbrains-mono flatpak wmctrl bat
+)
+
+#packages_fedora=(
+#  zsh neovim git htop kitty qalculate xclip
+#  libreoffice libreoffice-langpack-de flameshot gimp
+#  thunderbird putty vlc gnome-disk-utility btop fzf hyfetch
+#  gpick rpi-imager papirus-icon-theme unzip nomacs flatpak
+#  bat 
+#)
 
 echo "2) Pakete installieren…"
 if [[ $DISTRO == "arch" ]]; then
