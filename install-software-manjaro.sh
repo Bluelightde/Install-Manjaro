@@ -16,7 +16,6 @@ if command -v pacman &>/dev/null; then
 #  PM_IN=(sudo dnf install -y)
 elif command -v apt-get &>/dev/null; then
   DISTRO="debian"
-  PM_UP=(sudo apt-get update && sudo apt-get -y upgrade)
   PM_IN=(sudo apt-get -y install)
 else
   echo "Unsupported distro" >&2
@@ -24,7 +23,12 @@ else
 fi
 
 echo "1) Cache & Metadaten aktualisieren…"
-$PM_UP
+if [[ $DISTRO == "debian" ]]; then
+  sudo apt-get update          # erst Paketlisten holen
+  sudo apt-get -y upgrade      # dann upgraden
+else
+  "${PM_UP[@]}"
+fi
 
 echo "2) Pakete installieren…"
 packages_arch=(
