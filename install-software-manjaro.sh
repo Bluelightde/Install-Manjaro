@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
-trap 'echo "x Fehler in Zeile $LINENO"; exit 1' ERR
+
+# Bei Strg+C oder Kill sauber aufräumen
+cleanup() {
+  echo            # Zeilenumbruch, falls der Cursor in der gleichen Zeile steht
+  echo "❌ Skript manuell abgebrochen."
+  # optional: Panel/Umgebung wiederherstellen
+  xfce4-panel --restart
+  exit 1
+}
+trap cleanup SIGINT SIGTERM
+
+trap 'echo "❌ Fehler in Zeile $LINENO"; exit 1' ERR
 
 # Logging
 exec > >(tee -i setup.log) 2>&1
@@ -104,14 +115,6 @@ if nvim --headless +PackerSync +qa! </dev/null &>/dev/null; then
 else
   echo "⚠️ Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
 fi
-
-# Headless PackerSync nur wenn verfügbar, stderr auf /dev/null, stdin dicht:
-if nvim --headless +PackerSync +qa! </dev/null 2>/dev/null; then
-  echo "→ Plugins synchronisiert"
-else
-  echo "Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
-fi
-
 
 echo "7) Oh My Zsh installieren/konfigurieren…"
 if [[ -d $HOME/.oh-my-zsh ]]; then
