@@ -54,8 +54,10 @@ packages_debian=(
 echo "2) Pakete installieren…"
 if [[ $DISTRO == "arch" ]]; then
   $PM_IN "${packages_arch[@]}"
-#else
-#  $PM_IN "${packages_fedora[@]}"
+elif [[ $DISTRO == "fedora" ]]; then
+  $PM_IN "${packages_fedora[@]}"
+else
+  $PM_IN "${packages_debian[@]}"
 fi
 
 echo "3) Flatpak & Flathub einrichten…"
