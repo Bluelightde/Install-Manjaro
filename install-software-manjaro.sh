@@ -8,12 +8,13 @@ exec > >(tee -i setup.log) 2>&1
 # Paketmanager-Detection
 if command -v pacman &>/dev/null; then
   DISTRO="arch"
-  PM_UP="sudo pacman -Syu --noconfirm"
-  PM_IN="sudo pacman -S --needed --noconfirm"
+  PM_UP=(sudo pacman -Syu --noconfirm)
+  PM_IN=(sudo pacman -S --needed --noconfirm)
 #elif command -v dnf &>/dev/null; then
- # PM_UP="sudo dnf upgrade --refresh -y"
- # PM_IN="sudo dnf install -y"
-elif command -v apt &>/dev/null; then
+#  DISTRO="fedora"
+#  PM_UP=(sudo dnf upgrade --refresh -y)
+#  PM_IN=(sudo dnf install -y)
+elif command -v apt-get &>/dev/null; then
   DISTRO="debian"
   PM_UP=(sudo apt-get update && sudo apt-get -y upgrade)
   PM_IN=(sudo apt-get -y install)
@@ -21,7 +22,6 @@ else
   echo "Unsupported distro" >&2
   exit 1
 fi
-
 
 echo "1) Cache & Metadaten aktualisieren…"
 $PM_UP
@@ -50,21 +50,18 @@ packages_debian=(
 #  gpick rpi-imager papirus-icon-theme unzip nomacs flatpak
 #  bat 
 #)
+echo "3) Paktete installieren"
+case "$DISTRO" in
+  arch)   "${PM_IN[@]}" "${packages_arch[@]}" ;;
+  fedora) "${PM_IN[@]}" "${packages_fedora[@]}" ;;
+  debian) "${PM_IN[@]}" "${packages_debian[@]}" ;;
+esac
 
-echo "2) Pakete installieren…"
-if [[ $DISTRO == "arch" ]]; then
-  $PM_IN "${packages_arch[@]}"
-elif [[ $DISTRO == "fedora" ]]; then
-  $PM_IN "${packages_fedora[@]}"
-else
-  $PM_IN "${packages_debian[@]}"
-fi
-
-echo "3) Flatpak & Flathub einrichten…"
+echo "4) Flatpak & Flathub einrichten…"
 sudo flatpak remote-add --if-not-exists flathub \
      https://flathub.org/repo/flathub.flatpakrepo
 
-echo "4) Flatpak-Apps installieren…"
+echo "5) Flatpak-Apps installieren…"
 flatpaks=(
   com.github.tchx84.Flatseal
   com.logseq.Logseq
@@ -84,7 +81,7 @@ for pkg in "${flatpaks[@]}"; do
   fi
 done
 
-echo "5) NvChad installieren/aktualisieren…"
+echo "6) NvChad installieren/aktualisieren…"
 NVCHAD_DIR="$HOME/.config/nvim"
 if [[ ! -d $NVCHAD_DIR ]]; then
   git clone https://github.com/NvChad/starter.git "$NVCHAD_DIR"
@@ -96,7 +93,7 @@ else
   nvim --headless +PackerSync +qa
 fi
 
-echo "6) Oh My Zsh installieren/konfigurieren…"
+echo "7) Oh My Zsh installieren/konfigurieren…"
 if [[ -d $HOME/.oh-my-zsh ]]; then
   echo "→ Oh My Zsh ist schon installiert."
 else
