@@ -4,14 +4,14 @@ set -euo pipefail
 # Bei Strg+C oder Kill sauber aufräumen
 cleanup() {
   echo            # Zeilenumbruch, falls der Cursor in der gleichen Zeile steht
-  echo "X Skript manuell abgebrochen."
+  echo "${RED}X Skript manuell abgebrochen."
   # optional: Panel/Umgebung wiederherstellen
   xfce4-panel --restart
   exit 1
 }
 trap cleanup SIGINT SIGTERM
 
-trap 'echo "X Fehler in Zeile $LINENO"; exit 1' ERR
+trap 'echo "${RED}X Fehler in Zeile $LINENO"; exit 1' ERR
 
 # Logging
 exec > >(tee -i setup.log) 2>&1
@@ -113,7 +113,7 @@ fi
 if nvim --headless +PackerSync +qa! </dev/null &>/dev/null; then
   echo "→ Plugins synchronisiert"
 else
-  echo "X Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
+  echo "${RED}X Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
 fi
 
 echo "7) Oh My Zsh installieren/konfigurieren…"
