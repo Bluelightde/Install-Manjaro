@@ -19,6 +19,7 @@ elif command -v apt-get &>/dev/null; then
   PM_UPDATE=(sudo apt-get update)           # Paketlisten holen
   PM_UPGRADE=(sudo apt-get -y upgrade)     # System upgraden
   PM_IN=(sudo apt-get -y install)          # Installation
+  sudo add-apt-repository ppa:neovim-ppa/unstable -y
 else
   echo "Unsupported distro" >&2
   exit 1
