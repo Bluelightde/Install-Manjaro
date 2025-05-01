@@ -7,7 +7,7 @@ exec > >(tee -i setup.log) 2>&1
 
 # Paketmanager-Detection
 if command -v pacman &>/dev/null; then
-  $DISTRO = "arch"
+  DISTRO = "arch"
   PM_UP="sudo pacman -Syu --noconfirm"
   PM_IN="sudo pacman -S --needed --noconfirm"
 #elif command -v dnf &>/dev/null; then
