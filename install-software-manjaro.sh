@@ -46,7 +46,7 @@ packages_debian=(
   libreoffice libreoffice-l10n-de flameshot gimp
   thunderbird putty vlc gnome-disk-utility btop fzf hyfetch
   gpick rpi-imager papirus-icon-theme unzip virtualbox virtualbox-guest-utils
-  fonts-jetbrains-mono flatpak wmctrl bat
+  fonts-jetbrains-mono flatpak wmctrl bat nala
 )
 
 #packages_fedora=(
