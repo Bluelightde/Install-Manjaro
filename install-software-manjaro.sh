@@ -88,17 +88,23 @@ for pkg in "${flatpaks[@]}"; do
   fi
 done
 
-echo "6) NvChad installieren/aktualisieren…"
+echo "5) NvChad installieren/aktualisieren…"
 NVCHAD_DIR="$HOME/.config/nvim"
 if [[ ! -d $NVCHAD_DIR ]]; then
   git clone https://github.com/NvChad/starter.git "$NVCHAD_DIR"
-  # Plugins headless installieren und dann beenden
-  nvim --headless +PackerSync +qa
+  echo "→ Klone NvChad…"
 else
   echo "→ NvChad existiert schon, update…"
   git -C "$NVCHAD_DIR" pull --ff-only
-  nvim --headless +PackerSync +qa
 fi
+
+# Plugin-Sync im Headless-Modus, stdin auf /dev/null, mit +qa! zwangsweise beenden
+if nvim --headless +PackerSync +qa! </dev/null; then
+  echo "→ Plugins synchronisiert"
+else
+  echo "⚠️ PackerSync nicht verfügbar oder fehlgeschlagen, übersprungen."
+fi
+
 
 echo "7) Oh My Zsh installieren/konfigurieren…"
 if [[ -d $HOME/.oh-my-zsh ]]; then
