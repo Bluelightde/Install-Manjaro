@@ -113,7 +113,7 @@ fi
 if nvim --headless +PackerSync +qa! </dev/null &>/dev/null; then
   echo "→ Plugins synchronisiert"
 else
-  echo "⚠️ Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
+  echo "X Plugin-Sync übersprungen (PackerSync nicht verfügbar)."
 fi
 
 echo "7) Oh My Zsh installieren/konfigurieren…"
