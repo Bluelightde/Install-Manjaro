@@ -56,6 +56,7 @@ packages_arch=(
   thunderbird putty vlc gnome-disk-utility btop fzf hyfetch
   gpick rpi-imager papirus-icon-theme unzip virtualbox virtualbox-guest-utils
   ttf-jetbrains-mono-nerd flatpak github-cli wmctrl bat
+  base-devel
 )
 
 packages_debian=(
