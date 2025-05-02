@@ -134,3 +134,9 @@ fi
 xfce4-panel --restart
 echo "✓ Alles erledigt!"
 
+#alias vi="nvim"
+#alias update="sudo pacman -Syu --noconfirm && flatpak update --appstream && flatpak update -y"
+# fuzzy-kill: Prozess wählen und killen
+#alias fkill='kill -9 "$(ps -ef | sed 1d | fzf | awk "{print \$2}")"'
+# fuzzy-ssh: Host aus known_hosts wählen und verbinden
+#alias fssh='ssh "$(awk -F"[ ,]" "{print \$1}" ~/.ssh/known_hosts | uniq | fzf)"'
